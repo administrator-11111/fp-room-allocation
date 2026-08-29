@@ -1,9 +1,7 @@
 package sistema.salas
 
 import sistema.salas.logica.*
-import sistema.salas.modelos.sistema.salas.modelos.FranjaHoraria
-import sistema.salas.modelos.sistema.salas.modelos.Sala
-import sistema.salas.modelos.sistema.salas.modelos.Solicitud
+import sistema.salas.modelos.*
 
 // Código sugerido por Lucas (27-08)
 

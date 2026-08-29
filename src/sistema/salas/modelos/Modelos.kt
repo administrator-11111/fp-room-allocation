@@ -1,4 +1,4 @@
-package sistema.salas.modelos.sistema.salas.modelos
+package sistema.salas.modelos
 
 data class Sala(
     val id: Int,

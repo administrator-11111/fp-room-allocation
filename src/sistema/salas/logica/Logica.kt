@@ -2,7 +2,7 @@
 
 package sistema.salas.logica
 
-import sistema.salas.modelos.sistema.salas.modelos.Sala
+import sistema.salas.modelos.Sala
 
 //funcion que muestra las salas
 fun mostrarSalas(catalogo:List<Sala>){
