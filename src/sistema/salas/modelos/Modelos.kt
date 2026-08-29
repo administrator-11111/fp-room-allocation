@@ -1,5 +1,13 @@
 package sistema.salas.modelos
 
+/*
+ * REGISTRO (Record) Y DATOS INMUTABLES
+ * En lugar de usar objetos tradicionales, usamos 'data class' con valores inmutables (val).
+ * Según Van Roy (2009, p. 23), los registros son el bloque de construcción
+ * fundamental para las estructuras simbólicas, asegurando que no tengamos
+ * errores de estado compartido ni efectos secundarios.
+ */
+
 data class Sala(
     val id: Int,
     val capacidad: Int,
@@ -30,5 +38,5 @@ data class Rechazo(
 
 data class EstadoProcesamiento(
     val asignaciones: List<Asignacion> = emptyList(),
-    val rechazos: List<Rechazo> = emptyList(),
+    val rechazos: List<Rechazo> = emptyList()
 )
