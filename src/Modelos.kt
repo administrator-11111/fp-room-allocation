@@ -1,37 +1,34 @@
 package sistema.salas.modelos
 
-// Código sugerido por Lucas (27-08)
 data class Sala(
     val id: Int,
     val capacidad: Int,
-    val equipamiento: List<String> = listOf()
+    val equipamiento: List<String> = emptyList()
 )
-
 
 data class FranjaHoraria(
     val inicio: Int,
-    val fin: Int,
+    val fin: Int
 )
 
 data class Solicitud(
-    val soliid: Int,
+    val id: Int,
     val franja: FranjaHoraria,
     val asistentes: Int,
-    val equipamientoRequerido: List<String> = listOf()
+    val equipamientoRequerido: List<String> = emptyList()
 )
 
 data class Asignacion(
-    val solicitudId: Int,
-    val salaId: String,
-    val franja: FranjaHoraria
+    val solicitud: Solicitud,
+    val sala: Sala
 )
 
 data class Rechazo(
-    val solicitudId: String,
+    val solicitud: Solicitud,
     val motivo: String
 )
 
 data class EstadoProcesamiento(
-    val asignaciones: List<Asignacion> = listOf(),
-    val rechazos: List<Rechazo> = listOf()
+    val asignaciones: List<Asignacion> = emptyList(),
+    val rechazos: List<Rechazo> = emptyList(),
 )
