@@ -4,7 +4,10 @@ import sistema.salas.modelos.*
 import sistema.salas.logica.*
 
 fun main() {
-    println("Bienvenido al sistema de asignamiento de Salas")
+    println("┌────────────────────────────────────────┐")
+    println("│  🖥️  SISTEMA DE GESTIÓN DE SALAS v1.0  │")
+    println("└────────────────────────────────────────┘")
+    println("[INFO] Inicializando servicios básicos...")
     // Creamos el catálogo fijo de salas
     val catalogoSalas = listOf(
         Sala(id = 1, capacidad = 10, equipamiento = listOf("pizarra")),
@@ -33,7 +36,7 @@ fun main() {
         Solicitud(id = 101, franja = FranjaHoraria(800, 930), asistentes = 12, equipamientoRequerido = listOf("pizarra")),
         Solicitud(id = 102, franja = FranjaHoraria(830, 1000), asistentes = 45, equipamientoRequerido = listOf("proyector", "sonido")),
         Solicitud(id = 103, franja = FranjaHoraria(900, 1100), asistentes = 120, equipamientoRequerido = listOf("proyector", "sonido", "aire_acondicionado")),
-        Solicitud(id = 104, franja = FranjaHoraria(930, 1030), asistentes = 8, equipamientoRequerido = listOf("videoconferencia")),
+        Solicitud(id = 104, franja = FranjaHoraria(930, 1030), asistentes = 8, equipamientoRequerido = listOf("videoconferencia", "estación de carga")),
         Solicitud(id = 105, franja = FranjaHoraria(1000, 1130), asistentes = 30, equipamientoRequerido = listOf("proyector", "pizarra")),
         Solicitud(id = 106, franja = FranjaHoraria(1030, 1200), asistentes = 80, equipamientoRequerido = listOf("proyector", "sonido", "grabacion")),
         Solicitud(id = 107, franja = FranjaHoraria(1100, 1300), asistentes = 15, equipamientoRequerido = listOf("pizarra", "aire_acondicionado")),
@@ -73,13 +76,13 @@ fun main() {
         Solicitud(id = 141, franja = FranjaHoraria(830, 1130), asistentes = 95, equipamientoRequerido = listOf("proyector", "sonido", "grabacion", "aire_acondicionado")),
         Solicitud(id = 142, franja = FranjaHoraria(930, 1100), asistentes = 14, equipamientoRequerido = listOf("videoconferencia", "aire_acondicionado")),
         Solicitud(id = 143, franja = FranjaHoraria(1130, 1330), asistentes = 50, equipamientoRequerido = listOf("proyector", "sonido")),
-        Solicitud(id = 144, franja = FranjaHoraria(1230, 1430), asistentes = 10, equipamientoRequerido = listOf("pizarra")),
+        Solicitud(id = 144, franja = FranjaHoraria(1230, 1430), asistentes = 10, equipamientoRequerido = listOf("pizarra digital")),
         Solicitud(id = 145, franja = FranjaHoraria(1430, 1530), asistentes = 25, equipamientoRequerido = listOf("proyector", "pizarra")),
         Solicitud(id = 146, franja = FranjaHoraria(1530, 1830), asistentes = 125, equipamientoRequerido = listOf("proyector", "sonido", "videoconferencia", "streaming")),
         Solicitud(id = 147, franja = FranjaHoraria(1630, 1730), asistentes = 8, equipamientoRequerido = listOf("videoconferencia")),
         Solicitud(id = 148, franja = FranjaHoraria(1700, 1900), asistentes = 65, equipamientoRequerido = listOf("proyector", "sonido", "aire_acondicionado")),
         Solicitud(id = 149, franja = FranjaHoraria(1830, 2030), asistentes = 40, equipamientoRequerido = listOf("proyector", "sonido")),
-        Solicitud(id = 150, franja = FranjaHoraria(1900, 2100), asistentes = 110, equipamientoRequerido = listOf("proyector", "sonido", "aire_acondicionado"))
+        Solicitud(id = 150, franja = FranjaHoraria(1900, 2100), asistentes = 110, equipamientoRequerido = listOf("set de iluminación"))
     )
 
     // Asignamos las tres restricciones en una lista inmutable
