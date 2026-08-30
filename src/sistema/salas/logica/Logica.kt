@@ -52,17 +52,21 @@ fun procesarSolicitudes(
 
     return solicitudes.fold(EstadoProcesamiento()) { estadoActual, solicitud ->
 
+        println("\uD83D\uDCDD Procesando Solicitud N° ${solicitud.id} [${solicitud.asistentes} personas | ${solicitud.equipamientoRequerido.size} equipos | ${formatearHora(solicitud.franja.inicio)} hasta ${formatearHora(solicitud.franja.fin)}]")
+
         // Determina la primera sala del catálogo que satisface las tres restricciones
         val salaApta = salas.firstOrNull { sala ->
             restricciones.all { restriccion -> restriccion(sala, solicitud, estadoActual) }
         }
 
         if (salaApta != null) {
+            println(" 🟢 Aprobada, se asignó la sala N°${salaApta.id}\n")
             estadoActual.copy(
                 asignaciones = estadoActual.asignaciones + Asignacion(solicitud, salaApta)
             )
         } else {
             val motivo = motivoRechazo(salas, solicitud)
+            println(" ❌ Rechazada por ${motivo}\n")
             estadoActual.copy(
                 rechazos = estadoActual.rechazos + Rechazo(solicitud, motivo)
             )
@@ -78,9 +82,10 @@ fun motivoRechazo(salas: List<Sala>, solicitud: Solicitud): String {
     if (salas.none { it.equipamiento.containsAll(solicitud.equipamientoRequerido) }) {
         return "Equipamiento no disponible: ${solicitud.equipamientoRequerido}."
     }
-    return "Salas aptas ya están ocupadas en el horario de ${formatearHora(solicitud.franja.inicio)} a ${formatearHora(solicitud.franja.fin)}"
+    return "Salas aptas ya están ocupadas en el horario solicitado"
 }
 
+// Convierte hora en formato militar (INT) a un formato estandar (retorna string)
 fun formatearHora(horaInt: Int): String {
     val horasMilitares = horaInt / 100
     val minutos = horaInt % 100
@@ -89,7 +94,7 @@ fun formatearHora(horaInt: Int): String {
         return "Hora inválida"
     }
 
-    val periodo = if (horasMilitares in 12..23) "p.m." else "a.m."
+    val periodo = if (horasMilitares in 12..23) "p.m" else "a.m"
 
     val horasNormales = when {
         horasMilitares == 0 || horasMilitares == 24 -> 12
@@ -103,13 +108,18 @@ fun formatearHora(horaInt: Int): String {
 }
 
 fun informeFinal(informe: EstadoProcesamiento) {
-    println("[>] Asignaciones aceptadas:")
+    println("--------------------------------------------------------------------------------")
+    println("┌────────────────────────────────────────┐")
+    println("│  🖨️  REPORTE DE ASIGNACIONES FINAL     │")
+    println("└────────────────────────────────────────┘")
+    println("✅ Asignaciones aceptadas (Total: ${informe.asignaciones.size})")
     informe.asignaciones.forEach { asignacion ->
-        println("* Solicitud ${asignacion.solicitud.id} -> Sala ${asignacion.sala.id} (Horario: ${formatearHora(asignacion.solicitud.franja.inicio)} a ${formatearHora(asignacion.solicitud.franja.fin)})")
+        println("  📥 Solicitud ${asignacion.solicitud.id} -> Sala N°${asignacion.sala.id} (Horario: ${formatearHora(asignacion.solicitud.franja.inicio)} a ${formatearHora(asignacion.solicitud.franja.fin)})")
     }
 
-    println("[X] Asignaciones rechazadas:")
+    println("\n⛔ Asignaciones rechazadas (Total: ${informe.rechazos.size})")
     informe.rechazos.forEach { rechazo ->
-        println("* Solicitud ${rechazo.solicitud.id} -> Rechazada: ${rechazo.motivo}")
+        println("  📤 Solicitud ${rechazo.solicitud.id} -> Motivo: ${rechazo.motivo}")
     }
+    println("--------------------------------------------------------------------------------")
 }
