@@ -78,5 +78,38 @@ fun motivoRechazo(salas: List<Sala>, solicitud: Solicitud): String {
     if (salas.none { it.equipamiento.containsAll(solicitud.equipamientoRequerido) }) {
         return "Equipamiento no disponible: ${solicitud.equipamientoRequerido}."
     }
-    return "Salas aptas ya están ocupadas en la franja ${solicitud.franja.inicio}-${solicitud.franja.fin}."
+    return "Salas aptas ya están ocupadas en el horario de ${formatearHora(solicitud.franja.inicio)} a ${formatearHora(solicitud.franja.fin)}"
+}
+
+fun formatearHora(horaInt: Int): String {
+    val horasMilitares = horaInt / 100
+    val minutos = horaInt % 100
+
+    if (horaInt !in 0..2400 || minutos > 59 || (horasMilitares == 24 && minutos > 0)) {
+        return "Hora inválida"
+    }
+
+    val periodo = if (horasMilitares in 12..23) "p.m." else "a.m."
+
+    val horasNormales = when {
+        horasMilitares == 0 || horasMilitares == 24 -> 12
+        horasMilitares > 12 -> horasMilitares - 12
+        else -> horasMilitares
+    }
+
+    val minutosTexto = minutos.toString().padStart(2, '0')
+
+    return "$horasNormales:$minutosTexto $periodo"
+}
+
+fun informeFinal(informe: EstadoProcesamiento) {
+    println("[>] Asignaciones aceptadas:")
+    informe.asignaciones.forEach { asignacion ->
+        println("* Solicitud ${asignacion.solicitud.id} -> Sala ${asignacion.sala.id} (Horario: ${formatearHora(asignacion.solicitud.franja.inicio)} a ${formatearHora(asignacion.solicitud.franja.fin)})")
+    }
+
+    println("[X] Asignaciones rechazadas:")
+    informe.rechazos.forEach { rechazo ->
+        println("* Solicitud ${rechazo.solicitud.id} -> Rechazada: ${rechazo.motivo}")
+    }
 }
