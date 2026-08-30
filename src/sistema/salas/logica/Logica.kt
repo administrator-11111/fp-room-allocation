@@ -76,7 +76,7 @@ fun motivoRechazo(salas: List<Sala>, solicitud: Solicitud): String {
         return "Capacidad insuficiente en el catálogo (${solicitud.asistentes} requeridos)."
     }
     if (salas.none { it.equipamiento.containsAll(solicitud.equipamientoRequerido) }) {
-        return "Equipamiento no disponible: ${solicitud.equipamientoRequerid}."
+        return "Equipamiento no disponible: ${solicitud.equipamientoRequerido}."
     }
     return "Salas aptas ya están ocupadas en la franja ${solicitud.franja.inicio}-${solicitud.franja.fin}."
 }
