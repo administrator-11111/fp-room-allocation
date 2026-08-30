@@ -85,7 +85,7 @@ fun main() {
     // Asignamos las tres restricciones en una lista inmutable
     val restriccionesAsignacion: List<(Sala, Solicitud, EstadoProcesamiento) -> Boolean> = listOf(
         restriccionCapacidad,
-        restriccionCapacidad,
+        restriccionEquipamiento,
         restriccionDisponibilidad
     )
 
