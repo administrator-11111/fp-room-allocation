@@ -1,149 +1,120 @@
 package sistema.salas
 
-import sistema.salas.logica.*
 import sistema.salas.modelos.*
-
-// Código sugerido por Lucas (27-08)
+import sistema.salas.logica.*
 
 fun main() {
     println("Bienvenido al sistema de asignamiento de Salas")
-    val catalogo = listOf(
-        Sala(199, capacidad = 8, equipamiento = listOf("pizarra")),
-        Sala(299, capacidad = 10, equipamiento = listOf("proyector", "pizarra")),
-        Sala(399, capacidad = 12, equipamiento = listOf("pizarra", "televisor")),
-        Sala(499, capacidad = 15, equipamiento = listOf("proyector", "pizarra", "aire_acondicionado")),
-        Sala(599, capacidad = 20, equipamiento = listOf("proyector", "pizarra", "videoconferencia")),
-        Sala(
-            699, capacidad
-
-
-            = 25, equipamiento = listOf("proyector", "pizarra", "sonido")
-        ),
-        Sala(
-            799,
-            capacidad = 10,
-            equipamiento = listOf("proyector", "pizarra", "videoconferencia", "aire_acondicionado")
-        ),
-        Sala(899, capacidad = 15, equipamiento = listOf("proyector", "pizarra", "sonido", "grabacion")),
-        Sala(999, capacidad = 20, equipamiento = listOf("proyector", "pizarra", "videoconferencia", "sonido")),
-        Sala(
-            1099,
-            capacidad = 23,
-            equipamiento = listOf("proyector", "pizarra", "videoconferencia", "sonido", "aire_acondicionado")
-        ),
-        Sala(
-            1199,
-            capacidad = 6,
-            equipamiento = listOf("proyector", "pizarra", "sonido", "grabacion", "aire_acondicionado")
-        ),
-        Sala(
-            1299,
-            capacidad = 20,
-            equipamiento = listOf("proyector", "pizarra", "videoconferencia", "sonido", "grabacion")
-        ),
-        Sala(
-            1399,
-            capacidad = 10,
-            equipamiento = listOf(
-                "proyector",
-                "pizarra",
-                "videoconferencia",
-                "sonido",
-                "grabacion",
-                "aire_acondicionado"
-            )
-        ),
-        Sala(
-            1499,
-            capacidad = 13,
-            equipamiento = listOf(
-                "proyector",
-                "pizarra",
-                "videoconferencia",
-                "sonido",
-                "grabacion",
-                "aire_acondicionado",
-                "streaming"
-            )
-        ),
-        Sala(1599, capacidad = 6, equipamiento = listOf("pizarra", "televisor"))
+    // Creamos el catálogo fijo de salas
+    val catalogoSalas = listOf(
+        Sala(id = 199, capacidad = 8, equipamiento = listOf("pizarra")),
+        Sala(id = 299, capacidad = 10, equipamiento = listOf("proyector", "pizarra")),
+        Sala(id = 399, capacidad = 12, equipamiento = listOf("pizarra", "televisor"))
     )
-    val solicitudes = listOf(
 
-        Solicitud(1, FranjaHoraria(830, 1000), asistentes = 4, equipamientoRequerido = listOf("pizarra")),
-        Solicitud(2, FranjaHoraria(1030, 1200), asistentes = 8, equipamientoRequerido = listOf("proyector", "pizarra")),
+    val flujoSolicitudes = listOf(
+        Solicitud(id = 1, FranjaHoraria(830, 1000), asistentes = 4, equipamientoRequerido = listOf("pizarra")),
         Solicitud(
-            3,
+            id = 2,
+            FranjaHoraria(1030, 1200),
+            asistentes = 8,
+            equipamientoRequerido = listOf("proyector", "pizarra")
+        ),
+        Solicitud(
+            id = 3,
             FranjaHoraria(1400, 1530),
             asistentes = 10,
             equipamientoRequerido = listOf("pizarra", "televisor")
         ),
         Solicitud(
-            4,
+            id = 4,
             FranjaHoraria(1600, 1800),
             asistentes = 12,
             equipamientoRequerido = listOf("proyector", "pizarra", "aire_acondicionado")
         ),
         Solicitud(
-            5,
+            id = 5,
             FranjaHoraria(1830, 2030),
             asistentes = 5,
             equipamientoRequerido = listOf("proyector", "pizarra", "sonido")
         ),
         Solicitud(
-            6,
+            id = 6,
             FranjaHoraria(900, 1130),
             asistentes = 15,
             equipamientoRequerido = listOf("proyector", "pizarra", "videoconferencia", "sonido")
         ),
         Solicitud(
-            7,
+            id = 7,
             FranjaHoraria(1200, 1330),
             asistentes = 6,
             equipamientoRequerido = listOf("proyector", "pizarra", "grabacion")
         ),
         Solicitud(
-            8,
+            id = 8,
             FranjaHoraria(1900, 2100),
             asistentes = 10,
             equipamientoRequerido = listOf("proyector", "pizarra", "videoconferencia", "aire_acondicionado")
         ),
-        Solicitud(9, FranjaHoraria(900, 1030), asistentes = 5, equipamientoRequerido = listOf("pizarra")),
+        Solicitud(id = 9, FranjaHoraria(900, 1030), asistentes = 5, equipamientoRequerido = listOf("pizarra")),
         Solicitud(
-            10,
+            id = 10,
             FranjaHoraria(1430, 1600),
             asistentes = 7,
             equipamientoRequerido = listOf("pizarra", "televisor")
         ),
         Solicitud(
-            11,
+            id = 11,
             FranjaHoraria(930, 1100),
             asistentes = 18,
             equipamientoRequerido = listOf("proyector", "pizarra", "videoconferencia", "sonido")
         ),
-        Solicitud(13, FranjaHoraria(830, 1000), asistentes = 30, equipamientoRequerido = listOf("pizarra")),
-        Solicitud(14, FranjaHoraria(1400, 1600), asistentes = 50, equipamientoRequerido = listOf("proyector")),
-        Solicitud(15, FranjaHoraria(1000, 1200), asistentes = 5, equipamientoRequerido = listOf("laboratorio")),
+        Solicitud(id = 13, FranjaHoraria(830, 1000), asistentes = 30, equipamientoRequerido = listOf("pizarra")),
+        Solicitud(id = 14, FranjaHoraria(1400, 1600), asistentes = 50, equipamientoRequerido = listOf("proyector")),
+        Solicitud(id = 15, FranjaHoraria(1000, 1200), asistentes = 5, equipamientoRequerido = listOf("laboratorio")),
         Solicitud(
-            16,
+            id = 16,
             FranjaHoraria(1600, 1800),
             asistentes = 8,
             equipamientoRequerido = listOf("pizarra", "impresora_3d")
         ),
-        Solicitud(17, FranjaHoraria(1100, 1300), asistentes = 20, equipamientoRequerido = listOf("streaming")),
-        Solicitud(18, FranjaHoraria(830, 1030), asistentes = 25, equipamientoRequerido = listOf("aire_acondicionado")),
+        Solicitud(id = 17, FranjaHoraria(1100, 1300), asistentes = 20, equipamientoRequerido = listOf("streaming")),
         Solicitud(
-            19,
+            id = 18,
+            FranjaHoraria(830, 1030),
+            asistentes = 25,
+            equipamientoRequerido = listOf("aire_acondicionado")
+        ),
+        Solicitud(
+            id = 19,
             FranjaHoraria(1700, 1830),
             asistentes = 4,
             equipamientoRequerido = listOf("pizarra", "televisor")
         ),
         Solicitud(
-            20,
+            id = 20,
             FranjaHoraria(1200, 1400),
             asistentes = 12,
             equipamientoRequerido = listOf("proyector", "pizarra", "sonido")
         )
     )
-    mostrarSalas(catalogo)
+
+    // Asignamos las tres restricciones en una lista inmutable
+    val restriccionesAsignacion: List<(Sala, Solicitud, EstadoProcesamiento) -> Boolean> = listOf(
+        restriccionCapacidad,
+        restriccionCapacidad,
+        restriccionDisponibilidad
+    )
+
+    val resultado = procesarSolicitudes(catalogoSalas, flujoSolicitudes, restriccionesAsignacion)
+
+    println("[>] Asignaciones aceptadas:")
+    resultado.asignaciones.forEach { asignacion ->
+        println("* Solicitud ${asignacion.solicitud.id} -> Sala ${asignacion.sala.id} (Horario: ${asignacion.solicitud.franja.inicio} a ${asignacion.solicitud.franja.fin})")
+    }
+
+    println("[X] Asignaciones rechazadas:")
+    resultado.rechazos.forEach { rechazo ->
+        println("* Solicitud ${rechazo.solicitud.id} -> Rechazada: ${rechazo.motivo}")
+    }
 }
