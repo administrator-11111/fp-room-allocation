@@ -89,15 +89,8 @@ fun main() {
         restriccionDisponibilidad
     )
 
-    val resultado = procesarSolicitudes(catalogoSalas, flujoSolicitudes, restriccionesAsignacion)
+    val informe = procesarSolicitudes(catalogoSalas, flujoSolicitudes, restriccionesAsignacion)
 
-    println("[>] Asignaciones aceptadas:")
-    resultado.asignaciones.forEach { asignacion ->
-        println("* Solicitud ${asignacion.solicitud.id} -> Sala ${asignacion.sala.id} (Horario: ${asignacion.solicitud.franja.inicio} a ${asignacion.solicitud.franja.fin})")
-    }
-
-    println("[X] Asignaciones rechazadas:")
-    resultado.rechazos.forEach { rechazo ->
-        println("* Solicitud ${rechazo.solicitud.id} -> Rechazada: ${rechazo.motivo}")
-    }
+    // muestra las asignaciones aceptadas y rechazadas
+    informeFinal(informe)
 }
